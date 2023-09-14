@@ -1,6 +1,6 @@
 <?php
 require_once ('tools/UserProjects.php');
-require_once ('tools/Config.php');
+require_once ('Config.php');
 /*
 require_once ('tools/UserAccounts.php');
 require_once ('tools/ListOfAllPostsForAnAccount.php');
