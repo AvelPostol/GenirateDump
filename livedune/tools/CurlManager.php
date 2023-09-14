@@ -10,7 +10,7 @@ class CurlManager {
 
   public function __construct($apiKey, $metod) {
     $this->apiKey = $apiKey;
-    $this->authHeader = 'access_token: ' . $this->apiKey;
+    $this->authHeader = 'access_token=' . $this->apiKey;
     $this->baseUrl = 'https://api.livedune.com';
     $this->requestUrl = $this->baseUrl . $metod;
     $this->top = 100;
@@ -51,17 +51,24 @@ class CurlManager {
 
     $ProcesParam['pageIndex'] = 1;
     $ProcesParam['pageSize'] = 100;
+    
 
     while ($continue) {
 
-        print_r(['далее запрос curl']);
+      print_r(['далее запрос curl']);
 
-      // Создание cURL-запроса
+      /*  // Создание cURL-запроса
       curl_setopt($this->ch, CURLOPT_URL, $this->requestUrl . '?' . $this->CreateQueryOrders($p, $ProcesParam));
       curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
       curl_setopt($this->ch, CURLOPT_HTTPHEADER, [
           $this->authHeader
-      ]);
+      ]);*/
+
+      $requestUrlWithParams = $this->requestUrl . '?' . $this->CreateQueryOrders($p, $ProcesParam);
+      $requestUrlWithAuth = $requestUrlWithParams . '&' . $this->authHeader;
+
+      curl_setopt($this->ch, CURLOPT_URL, $requestUrlWithAuth);
+
 
       print_r(['получили curl']);
       $jsonResponse = curl_exec($this->ch);
