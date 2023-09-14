@@ -1,48 +1,29 @@
 <?php
 
 class UserProjects {
-  private $token;
-  private $authHeader;
-  private $baseUrl;
-  private $requestUrl;
-  private $top;
-  private $ch;
 
+  private $CurlManager;
 
-  public function __construct($token) {
-      $this->token = $token;
-      $this->authHeader = 'Authorization: Bearer ' . $this->token;
-      $this->baseUrl = 'https://api.livedune.com';
-      $this->requestUrl = $this->baseUrl . '/projects';
-      $this->top = 1;
-      $this->ch = curl_init();
+  public function __construct($metod) {
+
+    $this->Config = new \Config();
+    $this->CurlManager = new CurlManager($this->Config->token(), $metod);
+
   }
 
   public function get() {
-    $accumulatedMessages = array();
+    $metod = '/projects';
 
-    $full_request_url = $this->requestUrl;
+    $this->CurlManager = new UserProjects($metod);
 
-    curl_setopt($this->ch, CURLOPT_URL, $full_request_url);
-    curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($this->ch, CURLOPT_HTTPHEADER, array($this->authHeader));
-
-    $jsonResponse = curl_exec($this->ch);
-
-    if ($jsonResponse === false) {
-      echo 'cURL Error: ' . curl_error($this->ch);
-      $continue = false; // Останавливаем цикл в случае ошибки
-    } else {
-      $response = json_decode($jsonResponse, true);
-      if (isset($response['$value']) && !empty($response['$value'])) {
-        foreach ($response['$value'] as $message) {
-          $accumulatedMessages[] = $message;
-        }
-      }
-    }
-
-    curl_close($this->ch);
-    return $accumulatedMessages;
+    $response = $this->CurlManager->Get(['CheckContentName' => 'projects', 'ContentPars' => true]);
+    return $response;
   }
 }
+/*
+'from' => $this->from,'to' => $this->to,
+$this->baseUrl = 'https://api.livedune.com';
+$this->requestUrl = $this->baseUrl . '/projects';
 
+$metod = '/api-orders-exchange-public/orders/' . $p['orderId'] . '/file';
+$chatManager = new ChatManager($metod);*/

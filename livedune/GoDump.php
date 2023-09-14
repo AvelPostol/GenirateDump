@@ -13,22 +13,24 @@ class GoDump {
 
   public function __construct() {
 
-      $this->UserProjects = new \UserProjects($token);
-      $this->UserAccounts = new \UserAccounts($token);
-      $this->ListOfAllPostsForAnAccount = new \ListOfAllPostsForAnAccount($token);
-      $this->AccountFollowerHistory = new \AccountFollowerHistory($token);
+    $this->Config = new \Config();
 
-      $this->StoriesForYourAccount = new \StoriesForYourAccount($token);
-      $this->GettingStatisticsForPost = new \GettingStatisticsForPost($token);
+    $this->UserProjects = new \UserProjects($this->Config->token());
+    /*$this->UserAccounts = new \UserAccounts();
+    $this->ListOfAllPostsForAnAccount = new \ListOfAllPostsForAnAccount();
+    $this->AccountFollowerHistory = new \AccountFollowerHistory();
 
-      $this->Config = new \Config();
-      $this->DataBase = new \DataBase($this->Config->mysql());
+    $this->StoriesForYourAccount = new \StoriesForYourAccount();
+    $this->GettingStatisticsForPost = new \GettingStatisticsForPost();
+
+    
+    $this->DataBase = new \DataBase($this->Config->mysql());*/
   }
 
   public function ListOfUserProjects() {
     $UserProj = $this->UserProjects->get();
   }
-
+/*
   public function ListOfUserAccounts() {
     $UserAcc = $this->UserAccounts->get();
   }
@@ -47,7 +49,7 @@ class GoDump {
 
   public function GettingStatisticsForPost() {
     $StatisPost = $this->GettingStatisticsForPost->get();
-  }
+  }*/
 
   public function Main() {
 
@@ -58,8 +60,7 @@ class GoDump {
 }
 
 $chatManager = new GoDump();
-
-$allChats = $chatManager->Main();
+$chatManager->Main();
 
 
 
