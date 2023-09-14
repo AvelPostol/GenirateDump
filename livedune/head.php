@@ -1,6 +1,8 @@
 <?php
 require_once ('tools/UserProjects.php');
 require_once ('Config.php');
+require_once ('tools/CurlManager.php');
+
 /*
 require_once ('tools/UserAccounts.php');
 require_once ('tools/ListOfAllPostsForAnAccount.php');
