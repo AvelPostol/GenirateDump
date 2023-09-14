@@ -54,6 +54,8 @@ class CurlManager {
 
     while ($continue) {
 
+        print_r(['далее запрос curl']);
+
       // Создание cURL-запроса
       curl_setopt($this->ch, CURLOPT_URL, $this->requestUrl . '?' . $this->CreateQueryOrders($p, $ProcesParam));
       curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
@@ -61,6 +63,7 @@ class CurlManager {
           $this->authHeader
       ]);
 
+      print_r(['получили curl']);
       $jsonResponse = curl_exec($this->ch);
       $response = json_decode($jsonResponse, true);
       print_r($response);
