@@ -10,7 +10,7 @@ class CurlManager {
 
   public function __construct($apiKey, $metod) {
     $this->apiKey = $apiKey;
-    $this->authHeader = 'apiKey: ' . $this->apiKey;
+    $this->authHeader = 'access_token: ' . $this->apiKey;
     $this->baseUrl = 'https://api.livedune.com';
     $this->requestUrl = $this->baseUrl . $metod;
     $this->top = 100;

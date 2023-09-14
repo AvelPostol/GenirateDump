@@ -4,18 +4,13 @@ class UserProjects {
 
   private $CurlManager;
 
-  public function __construct($metod) {
-
-    $this->Config = new \Config();
-    $this->CurlManager = new CurlManager($this->Config->token(), $metod);
-
+  public function __construct($token) {
+    $this->token = $token;
   }
 
   public function get() {
-    $metod = '/projects';
 
-    $this->CurlManager = new UserProjects($metod);
-
+    $this->CurlManager = new CurlManager($this->token, $metod);
     $response = $this->CurlManager->Get(['CheckContentName' => 'projects', 'ContentPars' => true]);
     return $response;
   }
